@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            margin-top: 80px;
+        }
+        .container{
+            padding:30px ;
+            text-align: center;
+            height: 430px;
+            width: 350px;
+            background-color: #8dd8fed8; 
+            border-radius: 20px;
+            box-shadow: 2px 2px 5px black;
+        }
+        
+        .heading{
+            margin-bottom: 20px;
+        }
+        .height,.weight{
+            padding: 10px;
+            margin: 5px 0px;
+        }
+        #height,#weight{
+            height: 40px;
+            width: 200px;
+            padding: 10px;
+            text-align: center;
+            border: none;
+            border-radius:10px ;
+            margin-bottom: 25px;
+        }
+        #button{
+            height: 40px;
+            width: 80px;
+            margin-top: 5px;
+            background-color: #F78700;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        #ans{text-align: center;
+            margin-top: 20px;
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="heading">BMI Calculator</h2>
+        <p></p>
+        <div class="box">
+
+                <h4 class="height">Height(cm)</h4>
+                <input type="text" id="height" placeholder="Enter Height in cm" required><br>
+
+                <h4 class="weight">Weight(kg)</h4>
+
+                <input type="text" id="weight" placeholder="Enter Height in kg"  required><br>
+
+                <button id="button">Calculate</button>
+
+                <h3 id="ans"></h3>
+        </div>
+
+    </div>
+    <script>
+        const Height=document.getElementById('height')
+        const Weight=document.getElementById("weight")
+        const btn=document.getElementById('button')
+        const answer=document.getElementById("ans")
+
+        btn.addEventListener("click",(ele)=>{
+            if (!Height.value || !Weight.value ) {
+                answer.innerHTML='Enter vaild value*'
+                answer.style.color='#F5511E'
+            } 
+            else{
+               const cm= document.getElementById("height").value;
+               const kg= document.getElementById("weight").value;
+               const BMI=(kg/((cm*cm)/10000)).toFixed(2)
+
+               if (BMI<16) {
+                answer.innerHTML='UnderWeight : ' + BMI
+                answer.style.color='yellow'
+               }
+               else if (BMI>18.5 && BMI<24.9) {
+                answer.innerHTML='Normal : ' + BMI
+                 answer.style.color='green'
+               }
+               else if (BMI>25 && BMI<29.9) {
+                (answer.innerHTML)='Overweight : ' + BMI
+                 answer.style.color='#F5511E'
+               }
+               else{
+                (answer.innerHTML)='Obese : ' + BMI
+                 answer.style.color='#D32F2E'
+               }
+            }   
+        })
+
+
+    </script>
+</body>
+</html>

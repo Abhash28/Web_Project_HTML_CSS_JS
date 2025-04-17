@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculater</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;    
+        }
+        body{
+            background-color:#78C1F2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0px;
+            
+        }
+        h2{
+            text-align: center;
+            color: #00203F;
+            margin:30px 0px;
+            font-size: 40px;
+        }
+        .container{
+            border-radius: 15px;
+            height: 465px;
+            width: 340px;
+            text-align: center;
+            background-color: #00203fff;
+            box-shadow: 10px 10px 30px  rgb(23, 20, 20);
+            margin-top: 20px;
+        }
+        input[type=text]{
+            height: 100px;
+            width: 99%;
+            border:2px solid black;
+            border-radius: 15px;
+            color: white;
+            background-color: #00203fff;
+            font-size: 40px;
+            padding-left: 25px;
+        }
+        .number{
+            font-size: 30px;
+              height: 62px;
+              width: 62px;
+              margin: 5px 8px;
+              border-radius: 10px;
+              cursor: pointer;
+              background-color:#011a34 ;
+              color: white;
+        }
+        
+        #equal{
+            height: 62px;
+            width: 90%;
+            margin: 5px 8px;
+            border-radius: 10px;
+            font-size: 40px;
+            cursor: pointer;
+            background-color: orangered;
+            color: white;
+        }
+        #equal:hover{
+            height:63px;
+            width: 91%;
+            
+        }
+
+
+    </style>
+</head>
+<body>
+    <h2>Calculater js Project</h2>
+    <div class="container">
+        <input type="text" id="screen">
+        <div class="btn">
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="number">*</button>
+
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="number">/</button>
+
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="number">-</button>
+
+            <button class="number">.</button>
+            <button class="number">0</button>
+            <button class="number" id="reset">C</button>
+            <button class="number">+</button>
+        </div>
+        <div>
+            <button id="equal">=</button>
+        </div>    
+    </div>
+    <script>
+           const number= document.querySelectorAll('.number')
+           const screen=document.getElementById("screen")
+           const equal1=document.getElementById("equal")
+           const reset=document.getElementById('reset')
+           
+
+           number.forEach(button => {
+            button.addEventListener('click',(ele)=>{
+                screen.value+=ele.target.innerHTML    
+            }) 
+            
+            equal1.addEventListener('click',(e)=>{
+                if(!screen.value){
+                    screen.value="Enter Value"
+                }
+                else{
+                    const answer=eval(screen.value)
+                    screen.value=answer
+                }
+            })
+            reset.addEventListener('click',()=>{
+                screen.value=''
+            })
+           });
+           
+    </script>
+</body>
+</html>

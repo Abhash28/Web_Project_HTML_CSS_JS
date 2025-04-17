@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        .main{
+            background-color: rgba(244, 244, 244, 0.201);
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+           max-width: 600px;
+            box-shadow: 0px 10px 10px 2px  rgb(231, 231, 231);
+            
+        }
+        h2{
+            text-align: center;
+        }
+        .Expenseform{
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            margin: 20px;
+            background-color: rgba(241, 241, 241, 0.423);
+            border-radius: 5px;
+        }
+        input[type=text],select,input[type=number],input[type=submit]{
+            margin: 10px;
+            height: 25px;
+            padding-left: 10px;
+        }
+        input[type=submit]{
+            background-color: #2fa03a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            height: 35px;
+            font-size:15px;
+            cursor: pointer;
+            
+            
+        }
+        input[type=submit]:hover{
+            background-color: #0e7819;
+        }
+        h3{
+            text-align: center;
+        }
+       table{
+        width: 100%;
+        border-collapse: collapse;
+       }
+       td,th{
+        border: 2px solid rgb(241, 241, 241);
+        text-align: center;
+        padding: 5px;
+        border-radius: 5px;
+       }
+       th{
+        background-color: #2fa03a;
+        color: white;
+       }
+
+    </style>
+</head>
+<body><div class="mainbox">
+    <div class="main">
+        <h2>Expense Tracker</h2>
+        <form class="Expenseform">
+            <input type="text" id="Expense" placeholder="Expense Description" required>
+            <select id="Category">
+                <option value="">- -Select Category- -</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Expense">Expense</option>
+                <option value="Expense">Movie</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="number" id="Amount" placeholder="Amount" required><br>
+            <input type="submit" id="submit" value="Add Expense">
+        </form>
+        <h3>Expense Summary</h3>
+        <table id="Expensetable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount ($)</th>
+                </tr>
+            </thead>
+            <tbody id="Expenselist">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+    <script>
+        const expenseform=document.getElementById("Expenseform")
+        const expenselist=document.getElementById('Expenselist')
+        const submit=document.getElementById("submit")
+
+        submit.addEventListener("click",function(event) {
+            event.preventDefault(); 
+
+            const Description=document.getElementById('Expense').value;
+            const Category=document.getElementById("Category").value;
+            const Amount=document.getElementById("Amount").value;
+
+            if (Description && Category && !isNaN(Amount)) {
+                
+                const newrow=document.createElement('tr')
+
+                newrow.innerHTML=`<td>${Description}</td><td>${Category}</td><td>$${Amount}</td>`
+                 
+                Expenselist.appendChild(newrow)
+            }
+            document.getElementById("Expense").value=''
+            document.getElementById("Category").value=''
+            document.getElementById("Amount").value=''
+        })
+    </script>
+</body>
+</html>

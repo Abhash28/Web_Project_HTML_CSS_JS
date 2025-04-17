@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter JS Project</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right,rgb(176, 176, 255), rgb(223, 241, 255));
+            background-repeat: no-repeat;
+
+        }
+        h2{
+            text-align: center;
+            margin: 40px 0px;
+        }
+        .container{
+            height:100vh;
+            width: 450px;
+            border: 2px solid rgb(0, 0, 0);
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            background-color: white;
+        }
+        #search{border-radius: 10px;
+            padding: 15px;
+            height: 40px;
+            width: 150px;
+            margin-bottom: 20px;
+            margin-left: 30%;
+            background-color: rgb(234, 234, 234);
+        }
+        .table, tr,th,td{
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 10px;
+            height: fit-content;
+            width: 400px;
+        }
+        th{
+            background-color: brown;
+            color: white;
+        }
+        tr:nth-child(even){
+            background-color: rgb(228, 228, 228);
+        }
+    </style>
+</head>
+<body>
+    <h2>Filter JS Project</h2>
+    <div class="container">
+         <input type="search" name="search" onkeyup="searchfun()" id="search" placeholder="Search...">
+         <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Branch</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Abhash</td>
+                    <td>B.tech</td>
+                    <td>CSE</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Computer Science</td>
+                    <td>Software Engineering</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>Business</td>
+                    <td>Marketing</td>
+                </tr>
+                <tr>
+                    <td>Robert Brown</td>
+                    <td>Engineering</td>
+                    <td>Mechanical</td>
+                </tr>
+                <tr>
+                    <td>Emily Davis</td>
+                    <td>Sciences</td>
+                    <td>Biology</td>
+                </tr>
+                <tr>
+                    <td>Michael Johnson</td>
+                    <td>Arts</td>
+                    <td>History</td>
+                </tr>
+                <tr>
+                    <td>Jessica Wilson</td>
+                    <td>Computer Science</td>
+                    <td>Data Science</td>
+                </tr>
+                <tr>
+                    <td>David Martinez</td>
+                    <td>Business</td>
+                    <td>Finance</td>
+                </tr>
+                <tr>
+                    <td>Sarah Lee</td>
+                    <td>Engineering</td>
+                    <td>Electrical</td>
+                </tr>
+                <tr>
+                    <td>James Taylor</td>
+                    <td>Sciences</td>
+                    <td>Chemistry</td>
+                </tr>
+                
+            </tbody>
+         </table>
+    </div>
+    <script>
+            const searchfun=()=>{
+               const filter=document.getElementById("search").value.toUpperCase();
+               let tr=document.getElementsByTagName('tr')
+               for (let i = 0; i < tr.length; i++) {
+                const element = tr[i]; 
+                let td=tr[i].getElementsByTagName("td")[0]
+                if (td) {
+                    let text=td.textContent 
+                    if (text.toUpperCase().indexOf(filter)>-1) {
+                        tr[i].style.display=''
+                    }
+                    else{
+                        tr[i].style.display="none";
+                    }
+                    
+               }
+               
+            }
+        }
+            searchfun()
+
+    </script>
+</body>
+</html>

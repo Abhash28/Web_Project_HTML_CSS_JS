@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade System</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+
+            height: fit-content;
+            width: 60%;
+            background-color: aquamarine;
+        }
+
+        h2 {
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        p {
+            margin-top: 10px;
+            border: 2px solid black;
+        }
+
+        #input {
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        #roll,
+        #student,
+        #physics,
+        #chemistry,
+        #math,
+        #english,
+        #computer {
+            height: 30px;
+            width: 150px;
+            margin: 15px 5px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 2px gray;
+
+        }
+
+        #button {
+            height: 35px;
+            width: 70px;
+            border-radius: 10px;
+            margin-left: 60px;
+            cursor: pointer;
+            color: white;
+            background-color: #006101;
+        }
+
+        #button:hover {
+            background-color: white;
+            color: black;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        table,
+        th,
+        tr,
+        td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            text-align: center;
+
+        }
+        h3{ color: red;
+            text-align: right;
+            font-size: 10px;
+            margin-bottom: 2px;
+        }
+        .notification{
+            position: absolute;
+            font-size: 10px;  
+            color: red;  
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Grade System Project</h2>
+        <p></p>
+        <div id="input">
+            <label for="Roll">Roll no :</label>
+            <input type="text" id="roll" placeholder="Roll no." value="1" >
+
+            <label for="student">Student Name:</label>
+            <input type="text" id="student" placeholder="Student Name" value="Abhash">
+
+            <label for="physics">Physics :</label>
+            <input type="number" id="physics" placeholder="Physics no." value="1">
+
+            <label for="chemistry">Chemistry :</label>
+            <input type="number" id="chemistry" placeholder="Chemistry no." value="1">
+
+            <label for="math">Math :</label>
+            <input type="number" id="math" placeholder="Math no." value="1"><br>
+
+            <label for="computer">Computer :</label>
+            <input type="number" id="computer" placeholder="Computer no." value="1">
+
+            <label for="english">English :</label>
+            <input type="number" id="english" placeholder="English no." value="1">
+
+            <button id="button">Submit</button>
+            <div id="noti">
+
+            </div>
+            <h3 id="reason"></h3>
+        </div>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Roll No.</th>
+                    <th>Student Name</th>
+                    <th>Total Marks</th>
+                    <th>Obtained Marks</th>
+                    <th>Percentage %</th>
+                    <th >Grade</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody id="info">
+
+            </tbody>
+        </table>
+        
+    </div>
+    <script>
+
+        const roll = document.getElementById('roll')
+        const name = document.getElementById('student')
+        const physics = document.getElementById('physics')
+        const chemistry = document.getElementById('chemistry')
+        const math = document.getElementById('math')
+        const computer = document.getElementById('computer')
+        const english = document.getElementById("english")
+        const btn = document.getElementById('button')
+        const maintable = document.getElementById("table")
+        const studentlist = document.getElementById("info")
+        let remark=document.querySelector("h3")
+            
+
+        btn.addEventListener("click", () => {
+           
+
+            if (!roll.value || !name.value || !physics.value || !chemistry.value || !math.value || !english.value) {
+                alert("Fill all the Required field")
+                return
+            }
+            if (math.value > 100 || physics.value > 100 || english.value > 100 || chemistry.value > 100 || computer.value > 100) {
+                alert('Marks can not 100 above ')
+                return
+            }
+            //obtained marks
+            const Obtained = Number(chemistry.value) + Number(physics.value) + Number(math.value) + Number(english.value) + Number(computer.value)
+
+            //precentage
+            const Percentage = (Obtained / 500 * 100).toFixed(2)
+
+            const grade=getgrade(Percentage)
+            const remark=getremark(physics,chemistry,math,english,computer)
+              
+            main(Obtained,Percentage,grade,remark)
+            })
+
+
+        function main(Obtained,Percentage,grade,remark) {
+            //create element and fix value
+            const newro = document.createElement('tr')
+            newro.innerHTML = `<td>${roll.value}</td><td>${name.value}</td><td>500</td><td>${Obtained}</td><td>${Percentage}</td><td>${grade}</td><td>${remark}</td>`
+
+            studentlist.appendChild(newro)
+
+
+            //submit notification
+            let noti=document.getElementById("noti")
+            let not=document.createElement('div')
+            not.classList.add("notification")
+            not.innerHTML='Data Submit Successfully !'
+            noti.appendChild(not)
+            
+            setTimeout(() => {
+                not.remove('notification')
+            }, 2000);
+            
+            localStorage.setItem(name,'name.value')
+
+            //empty values 
+            roll.value = ''
+            name.value = ''
+            physics.value = ''
+            chemistry.value = ''
+            math.value = ''
+            computer.value = ''
+            english.value = ''
+
+           
+        }
+
+
+        function getremark(physics,chemistry,math,english,computer) {
+            if (physics.value < 40 || chemistry.value<40 || math.value<40 ||english.value<40 ||computer.value<40) {
+                document.getElementById("reason").innerHTML='Fail Because having less then 40 marks in subject';
+                return 'Fail'
+            }
+            else {
+                return "Pass" ;
+            }
+        }
+
+       function getgrade(Percentage) {
+            if (Percentage> 81 && Percentage <= 100) {
+                return 'A';
+            }
+            else if (Percentage > 61 && Percentage<= 80) {
+                return "B";
+            }
+            else if (Percentage > 41 && Percentage <= 60) {
+                return "C";
+            }
+            else if (Percentage == 40) {
+                return "D";
+            }
+            else {
+                 return "F";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

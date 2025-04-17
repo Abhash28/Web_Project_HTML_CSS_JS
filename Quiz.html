@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(to right, #9BC4FA, #DEC5F7);
+            background-repeat: no-repeat;
+        }
+        .new{
+            background-color: red;
+        }
+
+        h1 {
+            padding-top: 50px;
+
+        }
+
+        .quiz-question {
+            margin-top: 40px;
+            height: fit-content;
+            width: 50%;
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin: 20px;
+        }
+
+        p {
+            border: 1px solid rgb(199, 194, 194);
+            color: black;
+        }
+
+        li {
+            list-style-type: none;
+            border: 2px solid rgb(217, 214, 214);
+            margin: 20px;
+            border-radius: 20px;
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .answer {
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        #submit {
+            margin: 20px;
+            height: 35px;
+            width: 80px;
+            border-radius: 15px;
+            background-color: #498be9;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        #submit:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Quiz JS Project</h2>
+        <div class="quiz-question">
+            <div id="quiz">
+                <h2 class="question" id="question">Quiz Question</h2>
+                <p></p>
+                <ul>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="a">
+                        <label for="a" id="option_1">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="b">
+                        <label for="b" id="option_2">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="c">
+                        <label for="c" id="option_3">Quiz Option</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="d">
+                        <label for="d" id="option_4">Quiz Option</label>
+                    </li>
+                </ul>
+                <p></p>
+                <div class="btn">
+                    <button type="submit" id="submit">Submit</button>
+                </div>
+                <div class="finalscore">
+                    
+                </div>
+            </div>
+        </div>
+        <script>
+            const quizdata = [
+                {
+                    Q: "1).Which HTML element is used to define the title of a document?",
+                    a: "<title>",
+                    b: "<head>",
+                    c: "<meta>",
+                    d: '<br>',
+                    ans: "<head>"
+                },
+
+                {
+                    Q: "2).Which HTML tag is used to create a hyperlink?",
+                    a: "<a>",
+                    b: "<link>",
+                    c: "<href>",
+                    d: '<i>',
+                    ans: "<href>"
+                },
+
+                {
+                    Q: "3).Which HTML tag is used to create a hyperlink?",
+                    a: "<h1>",
+                    b: "<li>",
+                    c: "<br>",
+                    d: '<i>',
+                    ans: "<href>"
+                }
+            ]
+
+
+            //selection
+            const question = document.getElementById("question")
+            const op_a = document.getElementById('option_1')
+            const op_b = document.getElementById('option_2')
+            const op_c = document.getElementById('option_3')
+            const op_d = document.getElementById('option_4')
+
+            const submit = document.getElementById("submit")
+
+            const answer = document.querySelectorAll(".answer")
+
+            let questionNo = 0
+            let score = 0
+
+            question.innerText = quizdata[questionNo].Q;
+            op_a.innerText = quizdata[questionNo].a;
+            op_b.innerText = quizdata[questionNo].b;
+            op_c.innerText = quizdata[questionNo].c;
+            op_d.innerText = quizdata[questionNo].d;
+
+
+            submit.addEventListener("click", () => {
+                let checkans = document.querySelector("input[type='radio']:checked");
+                if (checkans == null) {
+                    alert("Atleast select one option")
+                }
+                else {
+                    if (checkans.nextElementSibling.textContent === quizdata[questionNo].ans) {
+
+                        score++;
+                    }
+                    questionNo++
+
+                    if (questionNo < quizdata.length) {
+
+                        question.innerText = quizdata[questionNo].Q;
+                        op_a.innerText = quizdata[questionNo].a;
+                        op_b.innerText = quizdata[questionNo].b;
+                        op_c.innerText = quizdata[questionNo].c;
+                        op_d.innerText = quizdata[questionNo].d;
+                        checkans.checked = false
+                    }
+                    else {
+                        let Yourscore = score
+                        alert(`Your score is ${Yourscore} out of ${quizdata.length}`)
+                        location.reload(true);
+                    }
+                }
+            })
+        </script>
+</body>
+
+</html>

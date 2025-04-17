@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        h2{
+            color:white;
+            text-align: center;
+            line-height: 80px;
+        }
+         .main{
+            margin-top: 100px;
+            margin-left: 500px;
+            border-radius: 10px;
+            height: 300px;
+            width: 500px;
+            background-color: #00203fff;
+    
+         }
+         .input{
+            text-align: center;
+         }
+         input[type=text]{
+            height: 40px;
+            width: 200px;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+         }
+         input[type=submit]{
+            height: 40px;
+            width: 100px;
+            border-radius: 5px;
+            padding: 10px;
+            margin-left: 20px;
+            cursor: pointer;
+         }
+         input[type=submit]:hover{
+            background-color:rgb(136, 239, 192) ;
+         }
+        #wrong{text-align: center;
+            font-weight: 900;
+            margin-top: 20px;
+            padding: 10px 0px;
+            color: rgb(240, 0, 0);
+        }
+        #totalguess{
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h2>Number Guessing Game</h2>
+        <div class="input">
+        <input type="text" id="input" required placeholder="Enter Number">
+        <input type="submit" id="guess" value="Guess">
+        </div>
+        <p id="wrong"></p>
+        <p id="totalguess">No of Guessing : 0</p>
+        
+    </div>
+    <script>
+        
+        const input=document.getElementById('input')
+        const Guess=document.getElementById('guess')
+        const wrong=document.getElementById("wrong")
+        const totalguess=document.getElementById('totalguess')
+        let Noguess=0;
+
+        let answer=Math.floor(Math.random()*100)+1;
+        Guess.addEventListener('click',()=>{
+            guessing();
+        })
+        console.log(answer);
+        
+        function guessing() { 
+            if (input.value<1 || input.value>100 || isNaN(input.value)) {
+                wrong.innerHTML='Enter valid number between 1 to 100'
+                input.value=''                
+            }
+            else{
+                 Noguess ++;
+                 totalguess.innerHTML='No of Guessing : '+ Noguess;
+                 if (answer<input.value) {
+                    wrong.innerHTML='No is too high'
+                    input.value='' 
+                 }
+                 else if(answer>input.value){
+                    wrong.innerHTML='No is too low '
+                    input.value='' 
+                 }
+                 else{
+                    wrong.innerHTML='Congratulations You guess the right No.'
+                    input.value=''
+                     
+                    setTimeout(() => {
+                        resetgame();
+                    }, 5000);
+                }
+                }
+        }
+        function resetgame() {
+            Noguess=0
+            totalguess.innerHTML='No of Guessing : 0'
+            answer=Math.floor(Math.random()*100)+1;
+            console.log(answer);
+        }
+        
+        
+        
+        
+    </script>
+</body>
+</html>

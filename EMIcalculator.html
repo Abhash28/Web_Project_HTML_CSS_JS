@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emi Calculater</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            margin-top: 70px;
+            background-color: #06B1CF;
+        }
+        .heading{color:#B64B39 ;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        p{
+            border: 1px solid black;
+        }
+        .container{
+            height: 370px;
+            width: 450px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 2px 2px 5px black;
+        }
+        #amount,#interst,#tenure{
+            margin-top: 20px;
+            margin-left: 20px;
+            padding: 10px;
+         height: 30px;
+         width: 200px;
+         border-radius: 10px;
+        }
+        label{
+            margin-left: 20px;
+            font-size: 20px;
+        }
+        #output{
+            margin-top: 20px;
+        }
+        h3{
+            text-align: center;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="heading">EMI Calculater</h2>
+        <p></p>
+        <div id="input">
+        <label for="principal">Loan Amount: </label>
+        <input type="number"  placeholder="Enter Principal Amount" id="amount"><br>
+
+        <label for="interst">Rate of Interst (%) :</label>
+        <input type="number"  placeholder="Interst (Annual)" id="interst"><br>
+
+        <label for="tenure">Tenure(in month) :</label>
+       <input type="number" placeholder="Tenure" id="tenure">
+
+       </div>
+       <div id="output">
+       <h3 class="emi" style="color: green;"></h3>
+       <h3 class="interst"></h3>
+       <h3 class="amount"></h3>
+    <script>
+        const input=document.querySelectorAll("input")
+        
+        input.forEach(input=>{
+            input.addEventListener("change",calculate)
+        })
+
+         function calculate(){
+            const p=document.querySelector('#amount').value;
+            const r=document.querySelector("#interst").value;
+            const n=document.querySelector("#tenure").value;
+            if (!p || !r ||!n) {
+                return
+            }
+
+            const monthlyinterst=r/100/12
+
+            const emi= (p*monthlyinterst*Math.pow(1+monthlyinterst,n) / (Math.pow(1+monthlyinterst,n)-1)).toFixed(2)
+        
+            const totalamount= (emi * n).toFixed(2)
+            const totalinterst=(totalamount - p).toFixed(2)
+
+            document.querySelector('.emi').innerHTML='EMI ₹ : ' +emi;
+            document.querySelector(".interst").innerHTML='Total Interst : ' +totalinterst;
+            document.querySelector(".amount").innerHTML='Total Amount : '+totalamount;
+
+         }
+        
+    </script>
+</body>
+</html>

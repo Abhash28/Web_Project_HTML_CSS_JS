@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signature App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .canvas{
+            border: 2px solid black;
+        }
+    </style>
+
+</head>
+
+<body >
+    <div class="flex flex-col items-center my-16">
+        <div class="flex justify-evenly">
+            <div class="mx-8 my-4 text-center">
+                <p >Text color Picker</p>
+                <input type="color" id="colorPicker" class="form-control  w-24 my-2">
+            </div>
+            <div class="mx-8 my-4 text-center">
+                <p>Background</p>
+                <input type="color" id="canvasColor" class="form-control w-24 my-2">
+            </div>
+            <div class="mx-8 my-4 text-center">
+                <p>Font Size</p>
+                <select name="" class="border-2 border-black w-24 my-2 rounded-md" id="fontPicker">
+                    <option value="2">2px</option>
+                    <option value="4">4px</option>
+                    <option value="6">6px</option>
+                    <option value="8">8px</option>
+                    <option value="10">10px</option>
+                    <option value="15">15px</option>
+                </select>
+            </div>
+        </div>
+        <canvas class="canvas" id="myCanvas" width="800" height="500"></canvas>
+        <div class="button">
+            <button type="button" class="btn btn-danger bg-red-600 hover:bg-red-500 rounded-md h-8 my-8 border-2 mx-8  px-16" id="clearButton">Clear</button>
+        </div>
+    </div>
+    <script>
+          const colorPicker=document.getElementById("colorPicker");
+          const canvasColor=document.getElementById("canvasColor");
+          const canvas=document.getElementById("myCanvas");
+          const clearButton=document.getElementById("clearButton");
+          const fontPicker=document.getElementById("fontPicker");
+          const ctx=canvas.getContext("2d")
+          let isDrawing=true
+          
+          
+          colorPicker.addEventListener("change",(e)=>{
+            ctx.strokeStyle=e.target.value;
+            ctx.fillStyle=e.target.value;
+          })
+        
+          canvas.addEventListener("mousedown",(e)=>{
+            isDrawing= true;
+            lastX=e.offsetX;
+            lastY=e.offsetY; 
+          })
+
+          canvas.addEventListener("mousemove",(event)=>{
+           if(isDrawing){
+            ctx.beginPath();
+            ctx.moveTo(lastX,lastY);
+            ctx.lineTo(event.offsetX,event.offsetY);
+            ctx.stroke(); 
+            lastX=event.offsetX;
+            lastY=event.offsetY
+           }
+          })
+          canvas.addEventListener('mouseup',(event)=>{
+            isDrawing=false
+          })
+
+          canvasColor.addEventListener('change',(e)=>{
+             ctx.fillStyle = e.target.value;
+             console.log(e.target.value);
+             ctx.fillRect(0,0,800,500)
+          })
+
+          fontPicker.addEventListener("change",(e)=>{
+            ctx.lineWidth=e.target.value;
+          })
+
+          // buttons
+          clearButton.addEventListener("click",()=>{
+            ctx.clearRect(0,0,800,500)
+          })
+    </script>
+</body>
+</html>
